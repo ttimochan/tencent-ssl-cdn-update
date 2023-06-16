@@ -1,0 +1,10 @@
+{
+	"name": "tencent-ssl-cdn-update",
+	"version": "0.0.1",
+	"author": "ttimochan",
+	"license": "GPL-3.0",
+	"dependencies": {
+		"tencentcloud-sdk-nodejs": "latest",
+		"tencentcloud-sdk-nodejs-ssl": "^4.0.623"
+	}
+}
