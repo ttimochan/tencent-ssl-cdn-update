@@ -2,9 +2,10 @@
  * @Author: timochan
  * @Date: 2023-06-16 21:18:01
  * @LastEditors: timochan
- * @LastEditTime: 2023-06-17 00:11:26
+ * @LastEditTime: 2023-06-17 00:18:42
  * @FilePath: /tencent-api/main.js
  */
+// Depends on tencentcloud-sdk-nodejs version 4.0.3 or higher
 const tencentcloud = require("tencentcloud-sdk-nodejs-ssl");
 const fs = require("fs");
 
@@ -26,65 +27,70 @@ const clientConfig = {
     },
 };
 
-// 封装异步函数以便使用 await
-function promisify(fn) {
-    return function (params) {
-        return new Promise((resolve, reject) => {
-            fn(params, (err, data) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(data);
-                }
-            });
-        });
-    };
-}
+// 实例化要请求产品的client对象,clientProfile是可选的
+function upload_cert() {
 
-// 上传证书
-async function uploadCert() {
+
     const client = new SslClient(clientConfig);
     const cert = fs.readFileSync("./cert.crt", "utf8");
     const key = fs.readFileSync("./key.key", "utf8");
     const params = {
-        CertificatePublicKey: cert,
-        CertificatePrivateKey: key,
-        CertificateType: "NGINX",
-        Alias: "R3",
+        "CertificatePublicKey": cert,
+        "CertificatePrivateKey": key,
+        "CertificateType": "NGINX",
+        "Alias": "R3"
     };
-    try {
-        const data = await promisify(client.UploadCertificate)(params);
-        console.log(data);
-        fs.writeFileSync("./log.json", JSON.stringify(data));
-        return data;
-    } catch (err) {
-        console.error("error", err);
-    }
+    client.UploadCertificate(params).then(
+        (data) => {
+            console.log(data);
+            fs.openSync('./log.json', 'w');
+            fs.writeFileSync('./log.json', JSON.stringify(data));
+            res_data = data;
+
+        },
+        (err) => {
+            console.error("error", err);
+        }
+    );
+
 }
 
-// 部署证书
-async function deployCert() {
+async function deploy_cert() {
     console.log("Start Deploy Cert");
-    try {
-        const data = await uploadCert();
-        const certId = data.CertificateId;
-        const client = new SslClient(clientConfig);
-        const params = {
-            CertificateId: certId,
-            InstanceIdList: [
-                // 请填写您的域名
-                "api.example.com",
-                "www.example.com",
-                "cdn.example.com",
-            ],
-            ResourceType: "cdn",
-            Status: 1,
-        };
-        const result = await promisify(client.DeployCertificateInstance)(params);
-        console.log(result);
-    } catch (err) {
-        console.error("error", err);
-    }
-}
+    // sleep 1s
+    upload_cert();
+    await new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    });
+    const data = fs.readFileSync('./log.json', 'utf8');
+    const data_json = JSON.parse(data);
+    console.log(data_json.CertificateId);
+    let CertId = data_json.CertificateId;
 
-deployCert();
+    const client = new SslClient(clientConfig);
+    const params = {
+
+        "CertificateId": CertId,
+        "InstanceIdList": [
+            // please input your domain
+            "api.example.com",
+            "www.example.com",
+            "cdn.example.com"
+        ],
+        "ResourceType": "cdn",
+        "Status": 1
+    };
+    client.DeployCertificateInstance(params).then(
+        (data) => {
+            console.log(data);
+        },
+        (err) => {
+            console.error("error", err);
+        }
+    );
+}
+deploy_cert();
+
+
