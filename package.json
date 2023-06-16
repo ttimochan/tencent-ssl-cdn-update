@@ -1,0 +1,10 @@
+{
+	"name": "cloudshell-tencentcloud-sdk-nodejs-environment",
+	"version": "1.0.0",
+	"author": "tencent-cloud",
+	"license": "ISC",
+	"dependencies": {
+		"tencentcloud-sdk-nodejs": "latest",
+		"tencentcloud-sdk-nodejs-ssl": "^4.0.623"
+	}
+}
