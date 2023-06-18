@@ -1,6 +1,6 @@
 {
 	"name": "tencent-ssl-cdn-update",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"author": "ttimochan",
 	"license": "GPL-3.0",
 	"dependencies": {
