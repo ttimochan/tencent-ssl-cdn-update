@@ -2,8 +2,8 @@
  * @Author: timochan
  * @Date: 2023-06-16 21:18:01
  * @LastEditors: timochan
- * @LastEditTime: 2023-06-18 13:07:34
- * @FilePath: /tencent-api/main.js
+ * @LastEditTime: 2023-08-12 15:10:59
+ * @FilePath: /tencent-ssl-cdn-update/main.js
  */
 const tencentcloud = require("tencentcloud-sdk-nodejs-ssl");
 const fs = require("fs");
@@ -35,7 +35,7 @@ function upload_cert() {
     const params = {
         "CertificatePublicKey": cert,
         "CertificatePrivateKey": key,
-        "CertificateType": "NGINX",
+        "CertificateType": "SVR",
         "Alias": "R3"
     };
     client.UploadCertificate(params).then(
