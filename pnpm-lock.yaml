@@ -10,7 +10,7 @@ dependencies:
     version: 4.0.623
   tencentcloud-sdk-nodejs-ssl:
     specifier: ^4.0.623
-    version: 4.0.623
+    version: 4.0.794
 
 packages:
 
@@ -25,6 +25,10 @@ packages:
 
   /asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
+    dev: false
+
+  /bignumber.js@9.1.2:
+    resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
     dev: false
 
   /combined-stream@1.0.8:
@@ -80,6 +84,12 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /json-bigint@1.0.0:
+    resolution: {integrity: sha512-SiPv/8VpZuWbvLSMtTDU8hEfrZWg/mH/nV/b4o0CYbSxu1UIQPLdwKOCIyLQX+VIPO5vrLX3i8qtqFyhdPSUSQ==}
+    dependencies:
+      bignumber.js: 9.1.2
+    dev: false
+
   /mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
@@ -108,26 +118,39 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
-  /tencentcloud-sdk-nodejs-common@4.0.623:
-    resolution: {integrity: sha512-C02qsYYWTAtbdDqr8XthRy5vcbTWmgiX3eH5mVjdWMIEx1i44PuzLXDzRHGaBLmKPZ1fiEx9QMK+BEGQ+vL3jw==}
+  /node-fetch@2.7.0:
+    resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
+    dependencies:
+      whatwg-url: 5.0.0
+    dev: false
+
+  /tencentcloud-sdk-nodejs-common@4.0.798:
+    resolution: {integrity: sha512-phv1EQHmZPEhOi0ci8rEYxteeztPXkE6Vhtj3kF5Bo2QDSWevOCI/K9RIptEqpFYxA8HVVWw1tiSyZlO3dixhw==}
     engines: {node: '>=10'}
     dependencies:
       form-data: 3.0.1
       get-stream: 6.0.1
       https-proxy-agent: 5.0.1
       is-stream: 2.0.1
-      node-fetch: 2.6.11
+      json-bigint: 1.0.0
+      node-fetch: 2.7.0
       tslib: 1.13.0
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: false
 
-  /tencentcloud-sdk-nodejs-ssl@4.0.623:
-    resolution: {integrity: sha512-DBotI0CV0qhvvstU4aWjChQfr7jv1tY8NbVv+lB+KbVphX7G0KUgRDdfv51jF32lKbg9TgkCFHJ7suXPGjxE3w==}
+  /tencentcloud-sdk-nodejs-ssl@4.0.794:
+    resolution: {integrity: sha512-VpU0mbH/dCmdv6oiDFjdV5XxxaZOR5Xnjlgvnd/IQX6Uudwp1P+7ENAiG5XyNwYq1u1OyUYNu+wh+AKXjowvIQ==}
     engines: {node: '>=10'}
     dependencies:
-      tencentcloud-sdk-nodejs-common: 4.0.623
+      tencentcloud-sdk-nodejs-common: 4.0.798
     transitivePeerDependencies:
       - encoding
       - supports-color
